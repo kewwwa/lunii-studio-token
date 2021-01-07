@@ -1,12 +1,13 @@
 const { ipcRenderer } = require('electron')
 
-let logContainer;
+let logContainer, loadTokenButton;
 
 init();
 
 function init() {
     logContainer = document.getElementById('logContainer');
-    document.getElementById('loadToken').addEventListener('click', loadToken);
+    loadTokenButton = document.getElementById('loadToken')
+    loadTokenButton.addEventListener('click', loadToken);
 
     ipcRenderer.on('error', (_, error) => logError(error));
     ipcRenderer.on('token', token);
@@ -16,6 +17,7 @@ function init() {
 }
 
 function loadToken() {
+    loadTokenButton.setAttribute('disabled', true)
     logContainer.innerHTML = '';
     logMessage('Chargement de Luniistore');
     ipcRenderer.send('read-file');
@@ -42,10 +44,12 @@ function token(_, token) {
 
 function fileSaved() {
     logMessage('Fichier sauvegardé');
+    loadTokenButton.removeAttribute('disabled');
 }
 
 function logError(error) {
     logMessage(error, '#F00');
+    loadTokenButton.removeAttribute('disabled');
 }
 
 function logMessage(message, color) {

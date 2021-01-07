@@ -1,10 +1,6 @@
 const { app, BrowserWindow } = require('electron')
 const App = require('./app')
 
-if (!app) {
-    new App()
-    return
-}
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
@@ -24,10 +20,11 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
         }
     })
 
+    win.menuBarVisible = false
     win.loadFile('src/index.html')
 
     new App()
