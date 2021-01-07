@@ -1,6 +1,6 @@
 {
   "name": "lunii-studio-token",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Retrive Lunii token for STUdio",
   "main": "src/index.js",
   "dependencies": {
